@@ -7,7 +7,6 @@ import dynamic from 'next/dynamic';
 import { ContentItem } from '@/data/contents';
 import ContentModal from '@/components/ContentModal';
 
-// Cube3Dはクライアントサイドのみで動作するためdynamic importを使用
 const Cube3D = dynamic(() => import('@/components/Cube3D'), {
   ssr: false,
   loading: () => (
@@ -18,8 +17,13 @@ const Cube3D = dynamic(() => import('@/components/Cube3D'), {
       alignItems: 'center',
       justifyContent: 'center',
     }}>
-      <div style={{ fontSize: '11px', color: '#aaa', letterSpacing: '0.1em', fontFamily: 'Georgia, serif' }}>
-        loading...
+      <div style={{
+        fontSize: '10px',
+        color: 'var(--air-ink-faint)',
+        letterSpacing: '0.14em',
+        fontFamily: 'Georgia, serif',
+      }}>
+        —
       </div>
     </div>
   ),
@@ -49,7 +53,6 @@ export default function HomePage() {
 
   useEffect(() => {
     setMounted(true);
-    // ヒントを3秒後に消す
     const timer = setTimeout(() => setShowHint(false), 4000);
     return () => clearTimeout(timer);
   }, []);
@@ -59,7 +62,7 @@ export default function HomePage() {
       style={{
         position: 'fixed',
         inset: 0,
-        background: '#f4f1ec',
+        background: 'var(--air-bg)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -67,20 +70,56 @@ export default function HomePage() {
         overflow: 'hidden',
       }}
     >
-      {/* 背景の微細なテクスチャパターン */}
+      {/* ── 背景：空気の層 ────────────────────────────── */}
+
+      {/* 上から差し込む光（霞んだ空） */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: `
-            radial-gradient(circle at 20% 30%, rgba(139, 115, 85, 0.06) 0%, transparent 50%),
-            radial-gradient(circle at 80% 70%, rgba(74, 111, 165, 0.04) 0%, transparent 50%)
+          background: `
+            radial-gradient(ellipse 80% 60% at 50% -10%,
+              rgba(190,210,205,0.28) 0%,
+              transparent 70%)
+          `,
+          pointerEvents: 'none',
+          animation: 'breathe 12s ease-in-out infinite',
+        }}
+      />
+
+      {/* 下からの反射光（砂・地面） */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: `
+            radial-gradient(ellipse 60% 40% at 50% 110%,
+              rgba(210,205,185,0.20) 0%,
+              transparent 65%)
+          `,
+          pointerEvents: 'none',
+          animation: 'breathe 16s ease-in-out infinite reverse',
+        }}
+      />
+
+      {/* 左右の光の滲み（森の縁・海の遠景） */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: `
+            radial-gradient(ellipse 40% 70% at -5% 50%,
+              rgba(180,200,195,0.12) 0%,
+              transparent 60%),
+            radial-gradient(ellipse 40% 70% at 105% 50%,
+              rgba(195,200,185,0.10) 0%,
+              transparent 60%)
           `,
           pointerEvents: 'none',
         }}
       />
 
-      {/* サイトタイトル */}
+      {/* ── サイトタイトル ─────────────────────────────── */}
       <div
         style={{
           position: 'absolute',
@@ -90,15 +129,15 @@ export default function HomePage() {
           textAlign: 'center',
           zIndex: 10,
           opacity: mounted ? 1 : 0,
-          transition: 'opacity 0.8s ease 0.3s',
+          transition: 'opacity 1.2s ease 0.4s',
         }}
       >
         <h1
           style={{
-            fontSize: '12px',
+            fontSize: '11px',
             fontWeight: 400,
-            letterSpacing: '0.25em',
-            color: '#8a7a6a',
+            letterSpacing: '0.28em',
+            color: 'var(--air-ink-light)',
             fontFamily: 'Georgia, serif',
             margin: 0,
             textTransform: 'uppercase',
@@ -106,36 +145,37 @@ export default function HomePage() {
         >
           Portfolio
         </h1>
+        {/* 区切り線：風が通り抜けるような細さ */}
         <div
           style={{
-            width: '24px',
+            width: '20px',
             height: '1px',
-            background: '#c4b89a',
-            margin: '8px auto 0',
+            background: 'var(--air-border)',
+            margin: '10px auto 0',
           }}
         />
       </div>
 
-      {/* メインの立方体エリア */}
+      {/* ── 立方体エリア ──────────────────────────────── */}
       <div
         style={{
           position: 'relative',
           zIndex: 5,
           opacity: mounted ? 1 : 0,
-          transform: mounted ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)',
-          transition: 'all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s',
+          transform: mounted ? 'translateY(0) scale(1)' : 'translateY(16px) scale(0.97)',
+          transition: 'all 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s',
         }}
       >
-        {/* 影 */}
+        {/* 影：地に落ちる柔らかい光 */}
         <div
           style={{
             position: 'absolute',
-            bottom: `-${Math.round(cubeSize * 0.12)}px`,
+            bottom: `-${Math.round(cubeSize * 0.10)}px`,
             left: '50%',
             transform: 'translateX(-50%)',
-            width: `${Math.round(cubeSize * 0.88)}px`,
-            height: `${Math.round(cubeSize * 0.12)}px`,
-            background: 'radial-gradient(ellipse, rgba(0,0,0,0.18) 0%, transparent 70%)',
+            width: `${Math.round(cubeSize * 0.80)}px`,
+            height: `${Math.round(cubeSize * 0.10)}px`,
+            background: 'radial-gradient(ellipse, rgba(80,100,80,0.10) 0%, transparent 72%)',
             pointerEvents: 'none',
           }}
         />
@@ -143,22 +183,27 @@ export default function HomePage() {
         <Cube3D onFaceClick={setSelectedContent} size={cubeSize} />
       </div>
 
-      {/* ドラッグヒント */}
+      {/* ── ドラッグヒント ─────────────────────────────── */}
       <div
         style={{
           position: 'absolute',
-          bottom: '120px',
+          bottom: '116px',
           left: '50%',
           transform: 'translateX(-50%)',
           textAlign: 'center',
-          opacity: showHint ? 0.6 : 0,
-          transition: 'opacity 0.8s ease',
+          opacity: showHint ? 0.55 : 0,
+          transition: 'opacity 1s ease',
           pointerEvents: 'none',
           zIndex: 10,
           whiteSpace: 'nowrap',
         }}
       >
-        <div style={{ fontSize: '11px', color: '#8a7a6a', letterSpacing: '0.12em', fontFamily: 'Georgia, serif' }}>
+        <div style={{
+          fontSize: '10px',
+          color: 'var(--air-ink-light)',
+          letterSpacing: '0.14em',
+          fontFamily: 'Georgia, serif',
+        }}>
           drag to rotate
         </div>
         <div
@@ -167,70 +212,78 @@ export default function HomePage() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '4px',
+            gap: '6px',
           }}
         >
-          <span style={{ fontSize: '18px', color: '#c4b89a', animation: 'bounceX 1.5s ease-in-out infinite' }}>←</span>
-          <span style={{ fontSize: '18px', color: '#c4b89a', animation: 'bounceX 1.5s ease-in-out infinite reverse' }}>→</span>
+          <span style={{
+            fontSize: '16px',
+            color: 'var(--air-ink-faint)',
+            animation: 'bounceX 1.6s ease-in-out infinite',
+          }}>←</span>
+          <span style={{
+            fontSize: '16px',
+            color: 'var(--air-ink-faint)',
+            animation: 'bounceX 1.6s ease-in-out infinite reverse',
+          }}>→</span>
         </div>
       </div>
 
-      {/* ボトムナビ */}
+      {/* ── ボトムナビ ─────────────────────────────────── */}
       <div
         style={{
           position: 'absolute',
-          bottom: '40px',
+          bottom: '36px',
           left: '50%',
           transform: 'translateX(-50%)',
           display: 'flex',
           alignItems: 'center',
-          gap: '32px',
+          gap: '28px',
           zIndex: 10,
           opacity: mounted ? 1 : 0,
-          transition: 'opacity 1s ease 0.8s',
+          transition: 'opacity 1.2s ease 0.9s',
           whiteSpace: 'nowrap',
         }}
       >
         <Link
           href="/contents"
           style={{
-            fontSize: '11px',
-            color: '#8a7a6a',
+            fontSize: '10px',
+            color: 'var(--air-ink-light)',
             textDecoration: 'none',
-            letterSpacing: '0.12em',
+            letterSpacing: '0.14em',
             fontFamily: 'Georgia, serif',
             display: 'flex',
             alignItems: 'center',
             gap: '6px',
-            transition: 'color 0.2s ease',
+            transition: 'color 0.25s ease',
           }}
-          onMouseEnter={e => (e.currentTarget.style.color = '#4a3a2a')}
-          onMouseLeave={e => (e.currentTarget.style.color = '#8a7a6a')}
+          onMouseEnter={e => (e.currentTarget.style.color = 'var(--air-ink)')}
+          onMouseLeave={e => (e.currentTarget.style.color = 'var(--air-ink-light)')}
         >
-          <span style={{ fontSize: '14px' }}>⊞</span>
+          <span style={{ fontSize: '13px', opacity: 0.7 }}>⊞</span>
           すべてを見る
         </Link>
 
-        <div style={{ width: '1px', height: '16px', background: '#d4c8b8' }} />
+        <div style={{ width: '1px', height: '14px', background: 'var(--air-border)' }} />
 
         <Link
           href="/about"
           style={{
-            fontSize: '11px',
-            color: '#8a7a6a',
+            fontSize: '10px',
+            color: 'var(--air-ink-light)',
             textDecoration: 'none',
-            letterSpacing: '0.12em',
+            letterSpacing: '0.14em',
             fontFamily: 'Georgia, serif',
-            transition: 'color 0.2s ease',
+            transition: 'color 0.25s ease',
           }}
-          onMouseEnter={e => (e.currentTarget.style.color = '#4a3a2a')}
-          onMouseLeave={e => (e.currentTarget.style.color = '#8a7a6a')}
+          onMouseEnter={e => (e.currentTarget.style.color = 'var(--air-ink)')}
+          onMouseLeave={e => (e.currentTarget.style.color = 'var(--air-ink-light)')}
         >
           about
         </Link>
       </div>
 
-      {/* モーダル */}
+      {/* ── モーダル ───────────────────────────────────── */}
       <ContentModal
         content={selectedContent}
         onClose={() => setSelectedContent(null)}

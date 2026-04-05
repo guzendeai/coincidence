@@ -254,14 +254,14 @@ export default function Cube3D({ onFaceClick, size = 340 }: Cube3DProps) {
       >
         {FACE_IDS.map((faceId) => {
           const isPrimary = faceId === currentPrimary;
-          // 各面に微妙なシェーディング
+          // 各面に自然光由来のシェーディング（黒でなく青緑灰で落とす）
           const shading: Record<FaceId, string> = {
             front:  'rgba(255,255,255,0.0)',
-            back:   'rgba(0,0,0,0.15)',
-            left:   'rgba(0,0,0,0.06)',
-            right:  'rgba(0,0,0,0.04)',
-            top:    'rgba(255,255,255,0.04)',
-            bottom: 'rgba(0,0,0,0.10)',
+            back:   'rgba(40,55,48,0.12)',
+            left:   'rgba(40,55,48,0.05)',
+            right:  'rgba(40,55,48,0.03)',
+            top:    'rgba(220,230,225,0.05)',
+            bottom: 'rgba(40,55,48,0.08)',
           };
           return (
             <div

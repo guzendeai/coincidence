@@ -23,13 +23,25 @@ export const categoryLabels: Record<ContentCategory, string> = {
   activity: '活動',
 };
 
+/*
+  ── カテゴリカラー（Air Palette）────────────────────────
+  すべて彩度を抑えた自然由来の中間色。
+  白背景でも浮きすぎず、消えすぎない濃さに統一。
+  ────────────────────────────────────────────────────────
+  note     : 枯れ葦・砂漠の草       温かみある砂灰
+  app      : 曇り空・遠い水面       冷静な青灰
+  link     : 苔・林の奥             穏やかな緑灰
+  photo    : 夕暮れの雲・霞         くすんだローズグレー
+  video    : 浅瀬・霧の海峡         静かな青緑灰
+  activity : 山影・森の稜線         落ち着いた青みがかった灰緑
+*/
 export const categoryColors: Record<ContentCategory, string> = {
-  note: '#8B7355',
-  app: '#4A6FA5',
-  link: '#5C8A6E',
-  photo: '#8A5C7A',
-  video: '#7A5C3D',
-  activity: '#5C6A8A',
+  note:     '#8c8270',  // 砂灰
+  app:      '#6a7e96',  // 青灰
+  link:     '#6a8a78',  // 緑灰
+  photo:    '#8a7882',  // ローズグレー
+  video:    '#5e8090',  // 青緑灰
+  activity: '#6e7e72',  // 青みがかった灰緑
 };
 
 export const contents: ContentItem[] = [
@@ -42,7 +54,7 @@ export const contents: ContentItem[] = [
     url: 'https://note.com',
     isExternal: true,
     tags: ['旅', '記憶', 'エッセイ'],
-    accentColor: '#8B7355',
+    accentColor: '#9e8e7a',  // 砂・葦
   },
   {
     id: 'c02',
@@ -53,7 +65,7 @@ export const contents: ContentItem[] = [
     url: '/gallery/light',
     isExternal: false,
     tags: ['光', '朝', '夕方'],
-    accentColor: '#C4956A',
+    accentColor: '#b09070',  // 朝の砂地
   },
   {
     id: 'c03',
@@ -64,7 +76,7 @@ export const contents: ContentItem[] = [
     url: 'https://apps.apple.com',
     isExternal: true,
     tags: ['iOS', '記録', 'マップ'],
-    accentColor: '#4A6FA5',
+    accentColor: '#6a7e96',  // 曇り空
   },
   {
     id: 'c04',
@@ -75,7 +87,7 @@ export const contents: ContentItem[] = [
     url: 'https://youtube.com',
     isExternal: true,
     tags: ['海', '朝', '映像'],
-    accentColor: '#3D7A8A',
+    accentColor: '#5e8090',  // 浅瀬
   },
   {
     id: 'c05',
@@ -86,7 +98,7 @@ export const contents: ContentItem[] = [
     url: '/activities/buildings',
     isExternal: false,
     tags: ['建築', '散歩', '記録'],
-    accentColor: '#6A5C8A',
+    accentColor: '#7e8a7a',  // 苔石
   },
   {
     id: 'c06',
@@ -97,7 +109,7 @@ export const contents: ContentItem[] = [
     url: 'https://note.com',
     isExternal: true,
     tags: ['都市', '静寂', 'エッセイ'],
-    accentColor: '#7A8A6A',
+    accentColor: '#8c8270',  // 乾いた草
   },
   {
     id: 'c07',
@@ -108,7 +120,7 @@ export const contents: ContentItem[] = [
     url: '/gallery/plants',
     isExternal: false,
     tags: ['植物', '暮らし', '光'],
-    accentColor: '#5C8A5C',
+    accentColor: '#7a9080',  // 青みがかった緑葉
   },
   {
     id: 'c08',
@@ -119,7 +131,7 @@ export const contents: ContentItem[] = [
     url: 'https://minne.com',
     isExternal: true,
     tags: ['zine', '余白', '手製本'],
-    accentColor: '#8A7A5C',
+    accentColor: '#9a8e7a',  // 紙・麻
   },
   {
     id: 'c09',
@@ -130,7 +142,7 @@ export const contents: ContentItem[] = [
     url: 'https://youtube.com',
     isExternal: true,
     tags: ['山', '空', 'タイムラプス'],
-    accentColor: '#5C6A8A',
+    accentColor: '#7080a0',  // 夜明けの空
   },
   {
     id: 'c10',
@@ -141,7 +153,7 @@ export const contents: ContentItem[] = [
     url: 'https://note.com',
     isExternal: true,
     tags: ['読書', '本', '記録'],
-    accentColor: '#8A5C5C',
+    accentColor: '#907a7a',  // 古い紙・錆
   },
   {
     id: 'c11',
@@ -152,7 +164,7 @@ export const contents: ContentItem[] = [
     url: 'https://palette.example.com',
     isExternal: true,
     tags: ['色', 'ツール', 'デザイン'],
-    accentColor: '#7A5C8A',
+    accentColor: '#7a7a94',  // 薄い夕暮れ紫
   },
   {
     id: 'c12',
@@ -163,7 +175,7 @@ export const contents: ContentItem[] = [
     url: '/gallery/rain',
     isExternal: false,
     tags: ['雨', '街', '光'],
-    accentColor: '#5C7A8A',
+    accentColor: '#6a8898',  // 濡れたアスファルト
   },
   {
     id: 'c13',
@@ -174,7 +186,7 @@ export const contents: ContentItem[] = [
     url: '/activities/crafts',
     isExternal: false,
     tags: ['工芸', '職人', '旅'],
-    accentColor: '#8A6A5C',
+    accentColor: '#9a7e6a',  // 土・陶器
   },
   {
     id: 'c14',
@@ -185,7 +197,7 @@ export const contents: ContentItem[] = [
     url: 'https://note.com',
     isExternal: true,
     tags: ['言葉', '空白', '思考'],
-    accentColor: '#6A8A7A',
+    accentColor: '#7a9084',  // 霧の中の木立
   },
   {
     id: 'c15',
@@ -196,7 +208,7 @@ export const contents: ContentItem[] = [
     url: 'https://vimeo.com',
     isExternal: true,
     tags: ['港', '夕日', '映像'],
-    accentColor: '#8A6A3D',
+    accentColor: '#a07a60',  // 夕日の波
   },
   {
     id: 'c16',
@@ -207,7 +219,7 @@ export const contents: ContentItem[] = [
     url: '/postcard',
     isExternal: false,
     tags: ['ポストカード', '写真', '販売'],
-    accentColor: '#7A8A5C',
+    accentColor: '#8a9470',  // 乾いた草地
   },
   {
     id: 'c17',
@@ -218,7 +230,7 @@ export const contents: ContentItem[] = [
     url: '/gallery/forest',
     isExternal: false,
     tags: ['森', '霧', '朝'],
-    accentColor: '#5C8A6E',
+    accentColor: '#6a8878',  // 霧の森
   },
   {
     id: 'c18',
@@ -229,7 +241,7 @@ export const contents: ContentItem[] = [
     url: '/activities/sound-map',
     isExternal: false,
     tags: ['音', '地図', '都市'],
-    accentColor: '#5C5C8A',
+    accentColor: '#707a8e',  // 夕暮れの都市空
   },
   {
     id: 'c19',
@@ -240,7 +252,7 @@ export const contents: ContentItem[] = [
     url: 'https://booth.pm',
     isExternal: true,
     tags: ['旅', '手帖', '冊子'],
-    accentColor: '#8A7A6A',
+    accentColor: '#9a8e7e',  // 古い手帖の紙
   },
   {
     id: 'c20',
@@ -251,6 +263,6 @@ export const contents: ContentItem[] = [
     url: '/gallery/station',
     isExternal: false,
     tags: ['駅', '夜', '光'],
-    accentColor: '#4A4A6A',
+    accentColor: '#606878',  // 夜の青灰
   },
 ];

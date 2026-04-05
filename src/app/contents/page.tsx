@@ -15,46 +15,56 @@ export default function ContentsPage() {
     : contents.filter(c => c.category === activeCategory);
 
   return (
-    <div style={{ minHeight: '100vh', background: '#faf9f7', padding: '0' }}>
-      {/* ヘッダー */}
+    <div style={{ minHeight: '100vh', background: 'var(--air-bg)', padding: '0' }}>
+
+      {/* ── ヘッダー ── */}
       <div
         style={{
-          borderBottom: '1px solid #e8e4df',
-          padding: '40px 40px 32px',
-          background: '#faf9f7',
+          borderBottom: '1px solid var(--air-border)',
+          padding: '36px 40px 28px',
+          background: 'var(--air-bg-glass)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
           position: 'sticky',
           top: 0,
           zIndex: 10,
-          backdropFilter: 'blur(10px)',
         }}
       >
-        <div style={{ maxWidth: '860px', margin: '0 auto' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
-            <div>
-              <Link
-                href="/"
-                style={{
-                  fontSize: '11px',
-                  color: '#999',
-                  textDecoration: 'none',
-                  letterSpacing: '0.1em',
-                  fontFamily: 'Georgia, serif',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                }}
-              >
-                ← もどる
-              </Link>
-            </div>
+        <div style={{ maxWidth: '840px', margin: '0 auto' }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '22px',
+          }}>
+            <Link
+              href="/"
+              style={{
+                fontSize: '10px',
+                color: 'var(--air-ink-light)',
+                textDecoration: 'none',
+                letterSpacing: '0.12em',
+                fontFamily: 'Georgia, serif',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px',
+                transition: 'color 0.2s ease',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.color = 'var(--air-ink)')}
+              onMouseLeave={e => (e.currentTarget.style.color = 'var(--air-ink-light)')}
+            >
+              ← もどる
+            </Link>
+
             <h1
               style={{
-                fontSize: '13px',
+                fontSize: '11px',
                 fontWeight: 400,
-                color: '#666',
-                letterSpacing: '0.15em',
+                color: 'var(--air-ink-light)',
+                letterSpacing: '0.18em',
                 fontFamily: 'Georgia, serif',
                 margin: 0,
+                textTransform: 'uppercase',
               }}
             >
               All Contents
@@ -62,11 +72,11 @@ export default function ContentsPage() {
           </div>
 
           {/* カテゴリフィルター */}
-          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '7px', flexWrap: 'wrap' }}>
             <FilterButton
               label="すべて"
               isActive={activeCategory === 'all'}
-              color="#333"
+              color="#6e7e72"
               onClick={() => setActiveCategory('all')}
             />
             {CATEGORIES.map(cat => (
@@ -82,13 +92,13 @@ export default function ContentsPage() {
         </div>
       </div>
 
-      {/* コンテンツグリッド */}
-      <div style={{ maxWidth: '860px', margin: '0 auto', padding: '40px 40px 80px' }}>
+      {/* ── コンテンツグリッド ── */}
+      <div style={{ maxWidth: '840px', margin: '0 auto', padding: '36px 40px 80px' }}>
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-            gap: '20px',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(230px, 1fr))',
+            gap: '16px',
           }}
         >
           {filtered.map(item => (
@@ -98,11 +108,11 @@ export default function ContentsPage() {
 
         <div
           style={{
-            marginTop: '60px',
+            marginTop: '56px',
             textAlign: 'center',
-            fontSize: '11px',
-            color: '#aaa',
-            letterSpacing: '0.1em',
+            fontSize: '10px',
+            color: 'var(--air-ink-faint)',
+            letterSpacing: '0.12em',
             fontFamily: 'Georgia, serif',
           }}
         >
@@ -128,13 +138,13 @@ function FilterButton({
     <button
       onClick={onClick}
       style={{
-        padding: '6px 14px',
-        fontSize: '11px',
+        padding: '5px 13px',
+        fontSize: '10px',
         letterSpacing: '0.06em',
         fontFamily: "'Noto Sans JP', sans-serif",
-        border: `1px solid ${isActive ? color : '#ddd'}`,
-        background: isActive ? color : 'transparent',
-        color: isActive ? '#fff' : '#666',
+        border: `1px solid ${isActive ? color + '80' : 'var(--air-border)'}`,
+        background: isActive ? color + '18' : 'transparent',
+        color: isActive ? color : 'var(--air-ink-light)',
         borderRadius: '20px',
         cursor: 'pointer',
         transition: 'all 0.2s ease',
@@ -156,63 +166,104 @@ function ContentCard({ content }: { content: ContentItem }) {
       rel={content.isExternal ? 'noopener noreferrer' : undefined}
       style={{
         display: 'block',
-        background: '#fff',
-        borderRadius: '4px',
+        background: 'var(--air-bg-warm)',
+        borderRadius: '3px',
         overflow: 'hidden',
         textDecoration: 'none',
-        border: '1px solid #ede9e4',
-        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+        border: '1px solid var(--air-border)',
+        boxShadow: 'var(--air-shadow-sm)',
+        transition: 'transform 0.22s ease, box-shadow 0.22s ease',
         cursor: 'pointer',
       }}
       onMouseEnter={e => {
         (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
-        (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)';
+        (e.currentTarget as HTMLElement).style.boxShadow = 'var(--air-shadow-md)';
       }}
       onMouseLeave={e => {
         (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-        (e.currentTarget as HTMLElement).style.boxShadow = 'none';
+        (e.currentTarget as HTMLElement).style.boxShadow = 'var(--air-shadow-sm)';
       }}
     >
       {/* サムネイルエリア */}
       <div
         style={{
-          height: '140px',
-          background: `linear-gradient(160deg, ${categoryColor}20 0%, ${categoryColor}40 100%)`,
+          height: '130px',
+          background: `linear-gradient(150deg, ${content.accentColor}15 0%, ${content.accentColor}35 100%)`,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           position: 'relative',
+          overflow: 'hidden',
         }}
       >
-        <div style={{ fontSize: '40px', opacity: 0.4 }}>
+        {/* 光の差し込み */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: `radial-gradient(ellipse 60% 50% at 70% 20%,
+            rgba(255,255,255,0.14) 0%, transparent 65%)`,
+          pointerEvents: 'none',
+        }} />
+
+        <div style={{ fontSize: '36px', opacity: 0.22, filter: 'saturate(0.5)' }}>
           {getCategoryIcon(content.category)}
         </div>
+
+        {/* カテゴリアクセントライン */}
         <div
           style={{
             position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: '3px',
-            background: `linear-gradient(90deg, ${categoryColor}, ${categoryColor}40)`,
+            top: 0, left: 0, right: 0,
+            height: '2px',
+            background: `linear-gradient(90deg, ${categoryColor}50, ${categoryColor}10)`,
           }}
         />
       </div>
 
       {/* テキストエリア */}
-      <div style={{ padding: '16px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
-          <span style={{ fontSize: '10px', color: categoryColor, fontWeight: 500, letterSpacing: '0.08em', fontFamily: 'Georgia, serif', textTransform: 'uppercase' }}>
+      <div style={{ padding: '14px 15px 15px' }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '6px',
+          marginBottom: '7px',
+        }}>
+          <span style={{
+            fontSize: '9px',
+            color: categoryColor,
+            fontWeight: 500,
+            letterSpacing: '0.10em',
+            fontFamily: 'Georgia, serif',
+            textTransform: 'uppercase',
+          }}>
             {label}
           </span>
           {content.isExternal && (
-            <span style={{ fontSize: '9px', color: '#bbb', marginLeft: 'auto' }}>↗</span>
+            <span style={{ fontSize: '9px', color: 'var(--air-ink-faint)', marginLeft: 'auto' }}>↗</span>
           )}
         </div>
-        <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#1a1a1a', margin: '0 0 8px', lineHeight: 1.4, fontFamily: "'Noto Serif JP', Georgia, serif" }}>
+        <h3 style={{
+          fontSize: '13px',
+          fontWeight: 500,
+          color: 'var(--air-ink)',
+          margin: '0 0 7px',
+          lineHeight: 1.45,
+          fontFamily: "'Noto Serif JP', Georgia, serif",
+          letterSpacing: '0.02em',
+        }}>
           {content.title}
         </h3>
-        <p style={{ fontSize: '11px', color: '#888', lineHeight: 1.6, margin: 0, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', fontFamily: "'Noto Sans JP', sans-serif" }}>
+        <p style={{
+          fontSize: '10.5px',
+          color: 'var(--air-ink-mid)',
+          lineHeight: 1.65,
+          margin: 0,
+          display: '-webkit-box',
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden',
+          fontFamily: "'Noto Sans JP', sans-serif",
+        }}>
           {content.description}
         </p>
       </div>
