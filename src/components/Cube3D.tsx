@@ -122,14 +122,14 @@ export default function Cube3D({ onFaceClick, size = 340 }: Cube3DProps) {
     const dy = e.clientY - dragStartRef.current.y;
     
     const newRotY = dragStartRef.current.rotY + dx * 0.4;
-    const newRotX = dragStartRef.current.rotX + dy * 0.4;
+    const newRotX = dragStartRef.current.rotX - dy * 0.4; // 符号反転: 上スワイプ→上面が見える
     
     // 速度計算
     const now = Date.now();
     const dt = now - lastDragRef.current.time;
     if (dt > 0) {
       velocityRef.current.y = (e.clientX - lastDragRef.current.x) * 0.4 * (16 / dt);
-      velocityRef.current.x = (e.clientY - lastDragRef.current.y) * 0.4 * (16 / dt);
+      velocityRef.current.x = -(e.clientY - lastDragRef.current.y) * 0.4 * (16 / dt); // 符号反転
     }
     lastDragRef.current = { x: e.clientX, y: e.clientY, time: now };
 
@@ -170,13 +170,13 @@ export default function Cube3D({ onFaceClick, size = 340 }: Cube3DProps) {
     const dy = touch.clientY - dragStartRef.current.y;
     
     const newRotY = dragStartRef.current.rotY + dx * 0.5;
-    const newRotX = dragStartRef.current.rotX + dy * 0.5;
+    const newRotX = dragStartRef.current.rotX - dy * 0.5; // 符号反転: 上スワイプ→上面が見える
 
     const now = Date.now();
     const dt = now - lastDragRef.current.time;
     if (dt > 0) {
       velocityRef.current.y = (touch.clientX - lastDragRef.current.x) * 0.5 * (16 / dt);
-      velocityRef.current.x = (touch.clientY - lastDragRef.current.y) * 0.5 * (16 / dt);
+      velocityRef.current.x = -(touch.clientY - lastDragRef.current.y) * 0.5 * (16 / dt); // 符号反転
     }
     lastDragRef.current = { x: touch.clientX, y: touch.clientY, time: now };
 
