@@ -1,38 +1,87 @@
 @import "tailwindcss";
 
+/*
+  ── Air Palette ─────────────────────────────────────────
+  海風・森の空気感を色と光で表現するためのデザイントークン。
+  白をベースに、淡い青灰・緑灰・砂を極わずかに混ぜる。
+  ────────────────────────────────────────────────────────
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ── ベース ── */
+  --air-bg:           #f7f8f6;   /* 白に森の息吹をほんの少し混ぜた色 */
+  --air-bg-warm:      #f5f6f4;   /* カード・面の地色（白磁より少し柔らかい） */
+  --air-bg-glass:     rgba(247,248,246,0.82); /* frosted glass用 */
+
+  /* ── テキスト ── */
+  --air-ink:          #2c2e2b;   /* 黒に緑がほんのり混じる。墨のような色 */
+  --air-ink-mid:      #606660;   /* 本文・説明文 */
+  --air-ink-light:    #9aa09a;   /* ラベル・サブテキスト */
+  --air-ink-faint:    #bcc2bc;   /* ヒント・区切り */
+
+  /* ── ボーダー・区切り ── */
+  --air-border:       rgba(100,115,100,0.10);  /* 緑灰を少し含む薄線 */
+  --air-border-light: rgba(100,115,100,0.06);
+
+  /* ── 影（軽く・薄く） ── */
+  --air-shadow-sm:    0 2px 12px rgba(60,80,60,0.06);
+  --air-shadow-md:    0 8px 32px rgba(60,80,60,0.08);
+  --air-shadow-lg:    0 20px 60px rgba(40,60,40,0.10);
+
+  /* ── 背景グラデーション ── */
+  --air-glow-top:     rgba(200,215,210,0.22);  /* 霞んだ空色・上 */
+  --air-glow-btm:     rgba(215,220,200,0.18);  /* 柔らかな光・下 */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--air-bg);
+  color: var(--air-ink);
+  font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── アニメーション ─────────────────────────────── */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes bounceX {
+  0%, 100% { transform: translateX(0); }
+  50%       { transform: translateX(5px); }
 }
 
-@keyframes flicker {
-  0% {
-    filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.5));
-    transform: rotate(-1deg);
-  }
-  100% {
-    filter: drop-shadow(1px 6px 12px rgba(0, 0, 0, 0.9));
-    transform: rotate(1deg);
-  }
+/* 背景の「光の揺らぎ」をゆっくり動かす */
+@keyframes breathe {
+  0%, 100% { opacity: 1;    transform: scale(1); }
+  50%       { opacity: 0.75; transform: scale(1.04); }
 }
 
+/* ── スクロールバー ─────────────────────────────── */
+::-webkit-scrollbar       { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--air-ink-faint); border-radius: 2px; }
+
+/* ── テキスト選択 ─────────────────────────────── */
+::selection {
+  background: rgba(130,160,140,0.18);
+  color: var(--air-ink);
+}
